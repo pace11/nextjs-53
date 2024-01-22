@@ -1,0 +1,7 @@
+.footer-red {
+  background-color: red;
+}
+
+.footer-red:hover {
+  background-color: blue;
+}

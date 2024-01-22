@@ -1,19 +1,15 @@
 import { useState } from "react";
+import stylesFooter from "./Footer.module.css";
 
-/**
- *
- * component statefull
- * @returns
- */
 export default function Footer() {
   const [number, setNumber] = useState(0);
 
   return (
     <div>
-      <button onClick={() => setNumber((prevState) => prevState + 1)}>
+      <button size="sm" onClick={() => setNumber((prevState) => prevState + 1)}>
         Button Number
       </button>
-      <p>Component Footer {number}</p>
+      <p className={stylesFooter["footer-red"]}>Component Footer {number}</p>
     </div>
   );
 }
