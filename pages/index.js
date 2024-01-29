@@ -46,7 +46,7 @@ export default function Home() {
 
           <div className={styles.center}>
             <Image
-              className={styles.logo}
+              // className={styles.logo}
               src="/next.svg"
               alt="Next.js Logo"
               width={180}
@@ -113,6 +113,12 @@ export default function Home() {
               </p>
             </a>
           </div>
+          <Image
+            src="https://public-tools.s3.ap-southeast-1.amazonaws.com/1698593905.374_image.png"
+            alt="hokage"
+            width={1000}
+            height={1000}
+          />
         </Layout>
       </main>
     </>
