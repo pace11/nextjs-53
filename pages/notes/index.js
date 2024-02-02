@@ -1,3 +1,5 @@
+import { useMutation } from "@/hooks/useMutation";
+import { useQueries } from "@/hooks/useQueries";
 import {
   Box,
   Button,
@@ -13,24 +15,25 @@ import {
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 const LayoutComponent = dynamic(() => import("@/layout"));
 
 export default function Notes() {
   const router = useRouter();
-  const [notes, setNotes] = useState();
+  const { mutate } = useMutation();
+  const { data: listNotes } = useQueries({
+    prefixUrl: `${process.env.NEXT_PUBLIC_URL_API}/api/notes`,
+  });
 
-  useEffect(() => {
-    async function fetchingData() {
-      const res = await fetch(
-        "https://paace-f178cafcae7b.nevacloud.io/api/notes"
-      );
-      const listNotes = await res.json();
-      setNotes(listNotes);
+  const HandleDelete = async (id) => {
+    const response = await mutate({
+      url: `${process.env.NEXT_PUBLIC_URL_API}/api/notes/delete/${id}`,
+      method: "DELETE",
+    });
+    if (response?.success) {
+      router.reload();
     }
-    fetchingData();
-  }, []);
+  };
 
   return (
     <>
@@ -46,7 +49,7 @@ export default function Notes() {
           </Flex>
           <Flex>
             <Grid templateColumns="repeat(3, 1fr)" gap={5}>
-              {notes?.data?.map((item) => (
+              {listNotes?.data?.map((item) => (
                 <GridItem>
                   <Card>
                     <CardHeader>
@@ -63,7 +66,11 @@ export default function Notes() {
                       >
                         Edit
                       </Button>
-                      <Button flex="1" colorScheme="red">
+                      <Button
+                        flex="1"
+                        colorScheme="red"
+                        onClick={() => HandleDelete(item?.id)}
+                      >
                         Delete
                       </Button>
                     </CardFooter>
