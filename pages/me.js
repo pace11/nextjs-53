@@ -14,7 +14,6 @@ export default function Me() {
     age: "",
   });
 
-  console.log("value form => ", field);
   return (
     <Layout metaDesc="Profile Anda" metaTitle="Profile - App Media Sosial">
       <div className="container-red">

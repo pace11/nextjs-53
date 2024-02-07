@@ -1,6 +1,5 @@
 import { useMutation } from "@/hooks/useMutation";
-// import { useQueries } from "@/hooks/useQueries";
-import { useQueriesSWR } from "@/hooks/useQueriesSWR";
+import { useQueries } from "@/hooks/useQueries";
 import {
   Box,
   Button,
@@ -22,20 +21,9 @@ const LayoutComponent = dynamic(() => import("@/layout"));
 export default function Notes() {
   const router = useRouter();
   const { mutate } = useMutation();
-  // const { data: listNotes } = useQueries({
-  //   prefixUrl: `${process.env.NEXT_PUBLIC_URL_API}/api/notes`,
-  // });
-
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const {
-    data: listNotes,
-    error,
-    isLoading,
-  } = useQueriesSWR({
+  const { data: listNotes } = useQueries({
     prefixUrl: `${process.env.NEXT_PUBLIC_URL_API}/api/notes`,
   });
-
-  console.log("data => ", listNotes);
 
   const HandleDelete = async (id) => {
     const response = await mutate({

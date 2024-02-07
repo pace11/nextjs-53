@@ -22,8 +22,8 @@ export default function Notes({ notes }) {
 //   return { props: { notes }, revalidate: 10 };
 // }
 
-// export async function getServerSideProps() {
-//   const res = await fetch("https://paace-f178cafcae7b.nevacloud.io/api/notes");
-//   const notes = await res.json();
-//   return { props: { notes } };
-// }
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/notes");
+  const notes = await res.json();
+  return { props: { notes } };
+}
